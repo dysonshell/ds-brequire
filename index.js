@@ -50,10 +50,19 @@ Browserify.prototype._createDeps = function(opts) {
             // 从 `/ccc/` 里面 require 或者普通路径 require ccc/ 下面的，先直接找，再以 @ccc 下面为 fallback
             results.push(yield coresolve(id, parent));
             var repParFile = parent.filename.replace('/ccc/', '/node_modules/@ccc/');
-            if (results.slice(-1)[0].err && (id.indexOf('ccc/') === 0 || (yield exists(repParFile)))) {
-                results.push(yield coresolve(id.replace(/^ccc\//, '@ccc/'), xtend(parent, {
-                    basedir: path.dirname(repParFile)
-                })));
+            if (results.slice(-1)[0].err) {
+                if (typeof GLOBAL.APP_ROOT === 'string' && id.indexOf('ccc/') === 0) {
+                    results.push(yield coresolve(id, xtend(parent, {
+                        paths: [APP_ROOT].concat(parent.paths),
+                        basedir: APP_ROOT
+                    })));
+                }
+                if (results.slice(-1)[0].err) {
+                    results.push(yield coresolve(id.replace(/^ccc\//, '@ccc/'), xtend(parent, {
+                        filename: repParFile,
+                        basedir: path.dirname(repParFile)
+                    })));
+                }
             }
         }
         var result = results.filter(function(r) {
