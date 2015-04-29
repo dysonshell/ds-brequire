@@ -1,1 +1,1 @@
-require('ccc/index/js/main/a');
+require('ccc/index/js/main/z');
