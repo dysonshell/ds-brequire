@@ -1,5 +1,4 @@
 'use strict';
-require('@ds/common');
 var fs = require('fs');
 var path = require('path');
 var Browserify = require('browserify');
