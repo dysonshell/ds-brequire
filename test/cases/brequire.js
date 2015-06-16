@@ -7,7 +7,7 @@ require('../../');
 
 GLOBAL.APP_ROOT = path.resolve(__dirname, '..');
 tape(function(test) {
-    test.plan(6);
+    test.plan(7);
     browserify('./hello.js', {
         basedir: APP_ROOT,
         fullPaths: true
