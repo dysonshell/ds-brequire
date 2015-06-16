@@ -24,6 +24,7 @@ tape(function(test) {
         test.equal(sandbox.b, 'b');
         test.equal(sandbox.c, 'mc');
         test.equal(sandbox.d, 'md');
+        test.equal(sandbox.e, 'e');
         console.log(err);
     });
 });
