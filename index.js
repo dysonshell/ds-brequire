@@ -41,7 +41,9 @@ Browserify.prototype._createDeps = function(opts) {
             // 从 @ccc 里面 require 的，先尝试在 /ccc/ 里面找对应的
             results.push(yield coresolve(id, xtend(parent, {
                 basedir: path.dirname(parent.filename.replace('/node_modules/@ccc/', '/ccc/'))
-            })));
+            }, (typeof GLOBAL.APP_ROOT === 'string' && id.indexOf('ccc/') === 0) ? {
+                paths: [APP_ROOT].concat(parent.paths),
+            } : {})));
             if (results.slice(-1)[0].err) {
                 results.push(yield coresolve(id.replace(/^ccc\//, '@ccc/'), parent));
             }
