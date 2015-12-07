@@ -3,6 +3,10 @@ var path = require('path');
 var vm = require('vm');
 var tape = require('tape');
 var browserify = require('browserify');
+GLOBAL.DSCONFIG = {
+    APP_ROOT: path.resolve(__dirname, '..'),
+    COMPONENT_PREFIX: 'ccc',
+};
 require('../../');
 
 GLOBAL.APP_ROOT = path.resolve(__dirname, '..');
