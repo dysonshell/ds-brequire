@@ -1,26 +1,26 @@
 {
-  "name": "@ds/brequire",
-  "version": "1.1.2",
-  "description": "用于 hack browserify 的 require，让 /ccc/ /node_modules/@ccc/ 下面的文件能够相互替代",
+  "name": "ds-brequire",
+  "version": "0.0.0",
+  "description": "用于 hack browserify 的 require，让 /dsc/ /node_modules/@dsc/ 下面的文件能够相互替代",
   "main": "index.js",
   "scripts": {
     "test": "tape test/cases/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@gitlab.creditcloud.com:10022/undozen/ds-brequire.git"
+    "url": "ssh://git@github.com/dysenshell/ds-brequire.git"
   },
   "author": "undoZen <undozen@creditcloud.com>",
-  "license": "private",
+  "license": "MIT",
   "peerDependencies": {
     "browserify": "*"
   },
   "dependencies": {
     "browserify": "*",
-    "co": "^4.5.2",
+    "co": "^4",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
-    "tape": "^4.0.0"
+    "tape": "^4"
   }
 }
