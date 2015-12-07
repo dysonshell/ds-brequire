@@ -1,13 +1,16 @@
 'use strict';
 var fs = require('fs');
 var path = require('path');
+var assert = require('assert');
+var config = require('config');
+assert(config.dsAppRoot);
 var Browserify = require('browserify');
 var co = require('co');
 var xtend = require('xtend');
 
 // config
-var APP_ROOT = (GLOBAL.DSCONFIG && GLOBAL.DSCONFIG.APP_ROOT) || process.env.DSCONFIG_APP_ROOT;
-var DSC = (GLOBAL.DSCONFIG && GLOBAL.DSCONFIG.COMPONENT_PREFIX) || process.env.DSCONFIG_COMPONENT_PREFIX || 'dsc';
+var APP_ROOT = config.dsAppRoot;
+var DSC = config.dsComponentPrefix || 'dsc';
 DSC = DSC.replace(/^\/+/, '').replace(/\/+$/, '') + '/';
 
 var _createDeps = Browserify.prototype._createDeps;
@@ -38,7 +41,7 @@ Browserify.prototype._createDeps = function(opts) {
         var originalParentFilename;
         if (parent.filename.indexOf('/'+DSC) === -1 &&
             parent.filename.indexOf('/node_modules/@'+DSC) === -1 &&
-            id.indexOf(''+DSC) !== 0 ) {
+            id.indexOf(DSC) !== 0 ) {
             return oresolve(id, parent, cb);
         }
         var results = [];
@@ -46,7 +49,7 @@ Browserify.prototype._createDeps = function(opts) {
             // 从 @dsc 里面 require 的，先尝试在 /dsc/ 里面找对应的
             results.push(yield coresolve(id, xtend(parent, {
                 basedir: path.dirname(parent.filename.replace('/node_modules/@'+DSC, '/'+DSC))
-            }, (typeof APP_ROOT === 'string' && id.indexOf(''+DSC) === 0) ? {
+            }, (typeof APP_ROOT === 'string' && id.indexOf(DSC) === 0) ? {
                 paths: [APP_ROOT].concat(parent.paths),
             } : {})));
             if (results.slice(-1)[0].err) {
@@ -57,7 +60,7 @@ Browserify.prototype._createDeps = function(opts) {
             results.push(yield coresolve(id, parent));
             var repParFile = parent.filename.replace('/'+DSC, '/node_modules/@'+DSC);
             if (results.slice(-1)[0].err) {
-                if (typeof APP_ROOT === 'string' && id.indexOf(''+DSC) === 0) {
+                if (typeof APP_ROOT === 'string' && id.indexOf(DSC) === 0) {
                     results.push(yield coresolve(id, xtend(parent, {
                         paths: [APP_ROOT].concat(parent.paths),
                         basedir: APP_ROOT

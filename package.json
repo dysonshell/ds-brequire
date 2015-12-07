@@ -2,6 +2,7 @@
   "name": "ds-brequire",
   "version": "1.0.0",
   "description": "用于 hack browserify 的 require，让 /dsc/ /node_modules/@dsc/ 下面的文件能够相互替代",
+  "files": ["index.js"],
   "main": "index.js",
   "scripts": {
     "test": "tape test/cases/*.js"
@@ -18,6 +19,7 @@
   "dependencies": {
     "browserify": "*",
     "co": "^4",
+    "config": "^1",
     "xtend": "^4.0.0"
   },
   "devDependencies": {
