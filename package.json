@@ -16,10 +16,10 @@
   "author": "undoZen <undozen@creditcloud.com>",
   "license": "MIT",
   "peerDependencies": {
-    "browserify": "*"
+    "browserify": "^12"
   },
   "dependencies": {
-    "browserify": "*",
+    "browserify": "^12",
     "co": "^4",
     "config": "^1",
     "xtend": "^4.0.0"
