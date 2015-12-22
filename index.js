@@ -52,11 +52,12 @@ Browserify.prototype._createDeps = function(opts) {
                     cb(err, file, pkg);
                 }
             });
+        //} else if (id.indexOf(DSC) === 0) {
         } else {
             // 从 `/dsc/` 里面 require 或者普通路径 require dsc/ 下面的，先直接找，再以 @dsc 下面为 fallback
             var xparent = xtend(parent, {
                 paths: [APP_ROOT].concat(parent.paths),
-                basedir: APP_ROOT
+                basedir: path.dirname(parent.filename)
             });
             oresolve(id, xparent, function (err, file, pkg) {
                 var repParFile = parent.filename.replace('/'+DSC, '/node_modules/@'+DSC);
